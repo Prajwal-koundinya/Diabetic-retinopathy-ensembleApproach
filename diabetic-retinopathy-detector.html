@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diabetic Retinopathy Detection</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #121212;
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background-color: #1e1e1e;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: 500;
+      color: #ffffff;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #aaaaaa;
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+    
+    .upload-area {
+      border: 2px dashed #444;
+      border-radius: 10px;
+      padding: 40px 20px;
+      text-align: center;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .upload-area:hover {
+      border-color: #00bcd4;
+      background-color: rgba(0, 188, 212, 0.05);
+    }
+    
+    .upload-icon {
+      font-size: 50px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    
+    .upload-text {
+      color: #aaa;
+      margin-bottom: 15px;
+    }
+    
+    .file-input {
+      display: none;
+    }
+    
+    .custom-file-btn {
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    
+    .custom-file-btn:hover {
+      background-color: #444;
+    }
+    
+    .predict-btn {
+      background-color: #00bcd4;
+      color: #fff;
+      border: none;
+      padding: 15px 0;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+    
+    .predict-btn:hover {
+      background-color: #0097a7;
+    }
+    
+    .predict-btn:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+    
+    .preview-container {
+      margin-bottom: 30px;
+      display: none;
+    }
+    
+    .preview-image {
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+    }
+    
+    .result-container {
+      display: none;
+      padding: 20px;
+      background-color: #252525;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+    
+    .result-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: white;
+    }
+    
+    .result-text {
+      margin-bottom: 10px;
+      color: #eee;
+    }
+    
+    .severity-meter {
+      background-color: #333;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+    
+    .severity-fill {
+      height: 100%;
+      width: 0%;
+      transition: width 1s ease-out;
+    }
+    
+    .severity-label {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+      color: #aaa;
+      font-size: 12px;
+    }
+    
+    .low {
+      background-color: #4caf50;
+    }
+    
+    .medium {
+      background-color: #ff9800;
+    }
+    
+    .high {
+      background-color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Diabetic Retinopathy Detection</h1>
+    <p class="subtitle">Upload a retinal image for AI-powered analysis</p>
+    
+    <div class="upload-area" id="dropArea">
+      <div class="upload-icon">📷</div>
+      <p class="upload-text">Drag and drop your retinal image here</p>
+      <label class="custom-file-btn">
+        Choose Image
+        <input type="file" class="file-input" id="fileInput" accept="image/*">
+      </label>
+      <p class="upload-text" id="file-name">No file selected</p>
+    </div>
+    
+    <div class="preview-container" id="previewContainer">
+      <img id="previewImage" class="preview-image" src="#" alt="Retinal image preview">
+    </div>
+    
+    <button class="predict-btn" id="predictBtn" disabled>Predict</button>
+    
+    <div class="result-container" id="resultContainer">
+      <h2 class="result-title">Analysis Results</h2>
+      <p class="result-text" id="resultText">Based on the analysis, there are signs of <span id="severityText">mild</span> diabetic retinopathy.</p>
+      
+      <div class="severity-meter">
+        <div class="severity-fill" id="severityFill"></div>
+      </div>
+      <div class="severity-label">
+        <span>None</span>
+        <span>Mild</span>
+        <span>Moderate</span>
+        <span>Severe</span>
+        <span>Proliferative</span>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const dropArea = document.getElementById('dropArea');
+    const previewContainer = document.getElementById('previewContainer');
+    const previewImage = document.getElementById('previewImage');
+    const predictBtn = document.getElementById('predictBtn');
+    const fileName = document.getElementById('file-name');
+    const resultContainer = document.getElementById('resultContainer');
+    const resultText = document.getElementById('resultText');
+    const severityText = document.getElementById('severityText');
+    const severityFill = document.getElementById('severityFill');
+    
+    // Handle file selection
+    fileInput.addEventListener('change', function() {
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        fileName.textContent = file.name;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImage.src = e.target.result;
+          previewContainer.style.display = 'block';
+          predictBtn.disabled = false;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    // Handle drag and drop
+    ['dragover', 'dragenter'].forEach(eventName => {
+      dropArea.addEventListener(eventName, function(e) {
+        e.preventDefault();
+        dropArea.style.borderColor = '#00bcd4';
+        dropArea.style.backgroundColor = 'rgba(0, 188, 212, 0.05)';
+      }, false);
+    });
+    
+    ['dragleave', 'dragend'].forEach(eventName => {
+      dropArea.addEventListener(eventName, function(e) {
+        dropArea.style.borderColor = '#444';
+        dropArea.style.backgroundColor = 'transparent';
+      }, false);
+    });
+    
+    dropArea.addEventListener('drop', function(e) {
+      e.preventDefault();
+      dropArea.style.borderColor = '#444';
+      dropArea.style.backgroundColor = 'transparent';
+      
+      if (e.dataTransfer.files.length > 0) {
+        fileInput.files = e.dataTransfer.files;
+        const file = e.dataTransfer.files[0];
+        fileName.textContent = file.name;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImage.src = e.target.result;
+          previewContainer.style.display = 'block';
+          predictBtn.disabled = false;
+        }
+        reader.readAsDataURL(file);
+      }
+    }, false);
+    
+    // Simulate prediction
+    predictBtn.addEventListener('click', function() {
+      // Show loading state
+      predictBtn.textContent = 'Analyzing...';
+      predictBtn.disabled = true;
+      
+      // Simulate API call delay
+      setTimeout(function() {
+        // Reset button
+        predictBtn.textContent = 'Predict';
+        predictBtn.disabled = false;
+        
+        // Show results (random for demo)
+        const severities = ['none', 'mild', 'moderate', 'severe', 'proliferative'];
+        const randomSeverity = Math.floor(Math.random() * 5);
+        const severity = severities[randomSeverity];
+        
+        // Update result text
+        if (severity === 'none') {
+          resultText.innerHTML = 'Based on the analysis, <strong>no signs</strong> of diabetic retinopathy were detected.';
+        } else {
+          resultText.innerHTML = `Based on the analysis, there are signs of <strong>${severity}</strong> diabetic retinopathy.`;
+        }
+        
+        // Update severity meter
+        const severityPercentage = (randomSeverity / 4) * 100;
+        severityFill.style.width = `${severityPercentage}%`;
+        
+        // Set color based on severity
+        if (randomSeverity <= 1) {
+          severityFill.className = 'severity-fill low';
+        } else if (randomSeverity <= 3) {
+          severityFill.className = 'severity-fill medium';
+        } else {
+          severityFill.className = 'severity-fill high';
+        }
+        
+        // Show result container
+        resultContainer.style.display = 'block';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
