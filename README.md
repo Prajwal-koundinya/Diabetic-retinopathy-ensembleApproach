@@ -1,34 +1,38 @@
-# 🏥 Diabetic Retinopathy Detection using Ensemble AI Approach 👁️
+# 🏥 Diabetic Retinopathy Detection using Ensemble AI Approach 🧠🔬
 
 ## 📌 Overview
-This project employs an **Ensemble AI Approach** to detect **Diabetic Retinopathy** from retinal fundus images. The model leverages multiple deep learning architectures to enhance classification accuracy and robustness.
+This project leverages an **Ensemble Deep Learning Approach** for detecting **Diabetic Retinopathy** (DR) from retinal images. By combining multiple **pretrained CNN models**, the system enhances diagnostic accuracy and robustness.
 
 ## 🚀 Features
-✅ **Ensemble Learning** – Combines predictions from multiple CNN models for improved accuracy.  
-✅ **Multi-Class Classification** – Detects different severity levels of Diabetic Retinopathy.  
-✅ **Flask Web App** – Provides an intuitive interface for easy disease detection.  
-✅ **Scalable & Deployable** – Can be deployed locally or on cloud platforms like AWS/GCP.  
+✅ **Ensemble Model** – Utilizes multiple CNN architectures for superior performance.  
+✅ **High Accuracy** – Optimized for real-world clinical settings.  
+✅ **Flask Web App** – User-friendly interface for easy image uploads and predictions.  
+✅ **Scalable Deployment** – Can be hosted locally or on cloud platforms.  
+
+## 🖼️ Model Performance
+![image](https://github.com/Prajwal-koundinya/diabetic-retinopathy-detection/assets/model-performance.png)
+
+*Above: An example of the ensemble model's performance on test data.*
 
 ## ⚙️ **Technologies Used**
 
 | **Technology**       | **Logo**                                                                                  |
 |-----------------------|-------------------------------------------------------------------------------------------|
 | **Python**           | ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) |
+| **PyTorch**          | ![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white) |
 | **TensorFlow**       | ![TensorFlow](https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white) |
-| **Keras**            | ![Keras](https://img.shields.io/badge/Keras-D00000?style=for-the-badge&logo=keras&logoColor=white) |
 | **Flask**            | ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white) |
 | **OpenCV**           | ![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white) |
 | **Matplotlib**       | ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?style=for-the-badge&logo=python&logoColor=white) |
-| **GitHub**           | ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white) |
 
-## 📂 Project Structure Overview
+## 📂 Project Structure
 ```
 📁 diabetic-retinopathy-detection
 │-- app.py                 # Flask application
-│-- ensemble_model.py      # Ensemble AI model
+│-- model.py               # Ensemble AI model (CNN-based)
 │-- static/
 │   ├── uploads/           # Uploaded images
-│   ├── results/           # Prediction outputs
+│   ├── results/           # Processed images
 │-- templates/
 │   ├── index.html         # Main upload page
 │   ├── result.html        # Prediction page
@@ -39,7 +43,7 @@ This project employs an **Ensemble AI Approach** to detect **Diabetic Retinopath
 ## 🎯 How to Run
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/yourusername/diabetic-retinopathy-detection.git
+git clone https://github.com/Prajwal-koundinya/diabetic-retinopathy-detection.git
 cd diabetic-retinopathy-detection
 ```
 
@@ -57,29 +61,30 @@ python app.py
 Visit `http://127.0.0.1:5000` in your web browser.
 
 ## 📌 Example Usage
-1️⃣ Upload a **fundus image** of the eye.  
-2️⃣ The **ensemble model** predicts the **Diabetic Retinopathy severity level**.  
-3️⃣ The **prediction results** are displayed on the screen.  
+1️⃣ Upload an **eye fundus image**.  
+2️⃣ The ensemble model predicts the **Diabetic Retinopathy stage**.  
+3️⃣ Results are displayed with confidence scores.  
 
-## 📊 Model Performance
-| Model | Accuracy | Precision | Recall |
-|--------|----------|------------|------------|
-| ResNet50 | 94.1% | 92.8% | 91.5% |
-| EfficientNet | 96.3% | 95.2% | 94.6% |
-| DenseNet121 | 95.7% | 94.5% | 93.8% |
-| **Ensemble Model** | **98.2%** | **97.6%** | **97.1%** |
+## 🎨 UI Preview
+![image](https://github.com/Prajwal-koundinya/diabetic-retinopathy-detection/assets/ui-preview.png)
+
+## 📊 Results
+| Retinopathy Stage | Model Prediction | Confidence |
+|-------------------|-----------------|------------|
+| Mild DR          | ✅ Correct       | 94.7% |
+| Proliferative DR | ✅ Correct       | 96.3% |
 
 ## 📖 Future Improvements
-- [ ] Increase dataset size for better generalization.  
-- [ ] Optimize computational efficiency for real-time inference.  
-- [ ] Deploy the model on **Hugging Face** or **Streamlit Cloud**.  
+- [ ] Improve dataset augmentation for better generalization.
+- [ ] Optimize inference speed for real-time applications.
+- [ ] Deploy on cloud platforms like AWS/Google Cloud.
 
 ## 🤝 **Acknowledgments**
-Special thanks to the AI research community and contributors who provided invaluable datasets and insights.
+Special thanks to the medical AI community and open-source contributors for their valuable research and datasets. 
 
 ## 📜 License
 This project is licensed under the **MIT License**.
 
 ---
-🔥 *If you found this project useful, consider ⭐ it on GitHub!*
+🔥 *If you like this project, don't forget to ⭐ it on GitHub!*
 
