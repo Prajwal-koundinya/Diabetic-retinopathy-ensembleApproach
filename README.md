@@ -80,7 +80,8 @@ Visit `http://127.0.0.1:5000` in your web browser.
 - [ ] Deploy on cloud platforms like AWS/Google Cloud.
 
 ## 🤝 **Acknowledgments**
-Special thanks to the medical AI community and open-source contributors for their valuable research and datasets. 
+Special thanks to the medical and AI communities for their valuable datasets and research.  
+Inspirational guidance from **Dr. Victor Ikechukwu**. Explore their work: [Dr. Victor Ikechukwu](https://github.com/Victor-Ikechukwu). 
 
 ## 📜 License
 This project is licensed under the **MIT License**.
