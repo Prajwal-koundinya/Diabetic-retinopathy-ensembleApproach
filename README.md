@@ -3,7 +3,7 @@
 ## 📌 Overview
 This project leverages an **Ensemble Deep Learning Approach** for detecting **Diabetic Retinopathy** (DR) from retinal images. By combining multiple **pretrained CNN models**, the system enhances diagnostic accuracy and robustness.
 
-## 🚀 Features
+## 🚀 Features:
 ✅ **Ensemble Model** – Utilizes multiple CNN architectures for superior performance.  
 ✅ **High Accuracy** – Optimized for real-world clinical settings.  
 ✅ **Flask Web App** – User-friendly interface for easy image uploads and predictions.  
