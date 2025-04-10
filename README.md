@@ -1,4 +1,4 @@
-# 🏥 Diabetic Retinopathy Detection using Ensemble AI Approach 🧠🔬
+# 🏥 Diabetic Retinopathy Detection using Ensemble AI Approach 🔬
 
 ## 📌 Overview
 This project leverages an **Ensemble Approach** for detecting **Diabetic Retinopathy** (DR) from retinal images. By combining multiple **pretrained CNN models**, the system enhances diagnostic accuracy and robustness for detection of DR. 
